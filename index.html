@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>scoanzki — Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #050507;
+      --accent: #6ee7ff;
+      --accent2: #3ab7ff;
+      font-family: "Poppins", Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND BLUR */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(18px);
+      background:
+        radial-gradient(circle at 20% 30%, rgba(110, 231, 255, 0.2), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(58, 183, 255, 0.15), transparent 55%),
+        #000;
+      z-index: -1;
+    }
+
+    /* SPARKLES */
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .sparkles i {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      filter: blur(1.5px);
+      opacity: 0.9;
+      animation: fall linear infinite;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-10vh);
+      }
+
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px;
+      text-align: left;
+    }
+
+    .header-line {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h1 {
+      font-size: 58px;
+      margin: 0;
+      background: linear-gradient(90deg, var(--accent), #dff9ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(110, 231, 255, 0.35);
+    }
+
+    /* THEME BUTTON */
+    .theme-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      background: var(--accent);
+      color: black;
+      font-weight: 600;
+      box-shadow: 0 0 12px var(--accent);
+      transition: 0.2s;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 18px var(--accent2);
+    }
+
+    /* PROFILE SECTION */
+    .profile-box {
+      margin-top: 25px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    /* === HEXAGON NEON PROFILE === */
+    .hex-profile {
+      width: 120px;
+      height: 135px;
+      position: relative;
+      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+      overflow: hidden;
+      border: 3px solid var(--accent);
+      box-shadow:
+        0 0 15px var(--accent),
+        0 0 30px var(--accent2);
+      transition: 0.35s;
+      cursor: pointer;
+    }
+
+    .hex-profile:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow:
+        0 0 20px var(--accent),
+        0 0 45px var(--accent2);
+    }
+
+    .hex-profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hex-profile::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        rgba(255, 255, 255, 0.12),
+        transparent 50%,
+        rgba(255, 255, 255, 0.12)
+      );
+      mix-blend-mode: overlay;
+      animation: scan 3s linear infinite;
+      opacity: 0.35;
+    }
+
+    .hex-profile::before {
+      content: "";
+      position: absolute;
+      top: -150%;
+      left: -150%;
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.18) 45%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 55%
+      );
+      animation: shineMove 5s linear infinite;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes shineMove {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(50%, 50%);
+      }
+    }
+
+    @keyframes scan {
+      0% {
+        transform: translateY(-30%);
+      }
+
+      100% {
+        transform: translateY(130%);
+      }
+    }
+
+    /* EMAIL */
+    .email-box {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.9;
+    }
+
+    /* CARD */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .social-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="backdrop"></div>
+  <div class="sparkles"></div>
+
+  <div class="container">
+
+    <!-- TITLE + BUTTON -->
+    <div class="header-line">
+      <h1>scoanzki</h1>
+
+      <!-- THEME SWITCH BUTTON -->
+      <button class="theme-btn" onclick="switchTheme()">Tema</button>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile-box">
+
+      <!-- HEXAGON PROFILE -->
+      <div class="hex-profile">
+        <img src="profil.jpg" alt="profile">
+      </div>
+
+      <div>
+        <h2 style="margin:0;">Scoanzki</h2>
+
+        <div class="email-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="4" width="20" height="16" rx="3" stroke="var(--accent)" stroke-width="1.6" />
+            <path d="M3 6l9 7 9-7" stroke="var(--accent)" stroke-width="1.6" />
+          </svg>
+          <span>fauzanrizki672@gmail.com</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <div class="card">
+      <h2>Sosial Media</h2>
+
+      <div class="social-item" onclick="openLink('https://instagram.com/scoanzki')">
+        <div class="icon-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="var(--accent)" stroke-width="1.6" />
+            <circle cx="12" cy="12" r="3.2" stroke="var(--accent)" stroke-width="1.6" />
+            <circle cx="17" cy="7" r="1" fill="var(--accent)" />
+          </svg>
+        </div>
+        <div>
+          <b>Instagram</b><br>@scoanzki
+        </div>
+      </div>
+
+      <div class="social-item" onclick="openLink('https://www.tiktok.com/@scoanzki')">
+        <div class="icon-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M9 8v9a3 3 0 1 0 3-3V7h3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div>
+          <b>TikTok</b><br>@scoanzki
+        </div>
+      </div>
+
+      <div class="social-item" onclick="openLink('https://www.linkedin.com/in/fauzan-ma-rizki')">
+        <div class="icon-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="2" stroke="var(--accent)" stroke-width="1.6" />
+            <circle cx="8" cy="8" r="1.4" fill="var(--accent)" />
+            <path d="M8 11v6M16 11v3a3 3 0 0 1-3 3" stroke="var(--accent)" stroke-width="1.6" />
+          </svg>
+        </div>
+        <div>
+          <b>LinkedIn</b><br>linkedin.com/in/fauzan-ma-rizki
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // buka link
+    function openLink(url) {
+      window.open(url, "_blank");
+    }
+
+    // sparkles generate
+    const sparkWrap = document.querySelector('.sparkles');
+    for (let i = 0; i < 40; i++) {
+      const s = document.createElement('i');
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.animationDuration = 6 + Math.random() * 12 + 's';
+      s.style.opacity = 0.3 + Math.random() * 0.7;
+      sparkWrap.appendChild(s);
+    }
+
+    // THEME SWITCHER (3 tema)
+    let themeIndex = 0;
+
+    function switchTheme() {
+      themeIndex = (themeIndex + 1) % 3;
+
+      if (themeIndex === 0) {
+        document.documentElement.style.setProperty("--bg", "#050507");
+        document.documentElement.style.setProperty("--accent", "#6ee7ff");
+        document.documentElement.style.setProperty("--accent2", "#3ab7ff");
+      }
+      if (themeIndex === 1) {
+        document.documentElement.style.setProperty("--bg", "#070014");
+        document.documentElement.style.setProperty("--accent", "#c56cff");
+        document.documentElement.style.setProperty("--accent2", "#ffb0ff");
+      }
+      if (themeIndex === 2) {
+        document.documentElement.style.setProperty("--bg", "#001a1a");
+        document.documentElement.style.setProperty("--accent", "#00ffbf");
+        document.documentElement.style.setProperty("--accent2", "#88ffe6");
+      }
+    }
+  </script>
+
+</body>
+</html>
