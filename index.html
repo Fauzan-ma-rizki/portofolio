@@ -83,7 +83,6 @@
       margin: 0;
       background: linear-gradient(90deg, var(--accent), #dff9ff);
       -webkit-background-clip: text;
-      color: transparent;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 20px rgba(110, 231, 255, 0.35);
     }
@@ -115,27 +114,34 @@
       gap: 25px;
     }
 
-    /* === HEXAGON NEON PROFILE === */
+    /* === HEXAGON HOLOGRAM SHINE SWIPE === */
     .hex-profile {
-      width: 120px;
-      height: 135px;
+      width: 135px;
+      height: 150px;
       position: relative;
       clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
       overflow: hidden;
-      border: 3px solid var(--accent);
-      box-shadow:
-        0 0 15px var(--accent),
-        0 0 30px var(--accent2);
-      transition: 0.35s;
-      cursor: pointer;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      transition: 0.3s;
     }
 
-    .hex-profile:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow:
-        0 0 20px var(--accent),
-        0 0 45px var(--accent2);
-    }
+    /* responsive */
+   /* RESPONSIVE HEXAGON */
+@media (max-width: 400px) {
+
+  .hex-profile {
+    width: 100px;
+    aspect-ratio: 0.866; /* rasio hexagon TRUE */
+    height: auto !important; /* jangan pakai fixed height */
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+}
+
+    
 
     .hex-profile img {
       width: 100%;
@@ -143,56 +149,38 @@
       object-fit: cover;
     }
 
+    /* Shine swipe hologram */
     .hex-profile::after {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        rgba(255, 255, 255, 0.12),
-        transparent 50%,
-        rgba(255, 255, 255, 0.12)
+        115deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 80%
       );
-      mix-blend-mode: overlay;
-      animation: scan 3s linear infinite;
-      opacity: 0.35;
+      transform: translateX(-150%);
+      animation: shine 4s ease-in-out infinite;
     }
 
-    .hex-profile::before {
-      content: "";
-      position: absolute;
-      top: -150%;
-      left: -150%;
-      width: 300%;
-      height: 300%;
-      background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.18) 45%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 55%
-      );
-      animation: shineMove 5s linear infinite;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes shineMove {
+    @keyframes shine {
       0% {
-        transform: translate(0, 0);
+        transform: translateX(-150%);
+      }
+
+      50% {
+        transform: translateX(150%);
       }
 
       100% {
-        transform: translate(50%, 50%);
+        transform: translateX(150%);
       }
     }
 
-    @keyframes scan {
-      0% {
-        transform: translateY(-30%);
-      }
-
-      100% {
-        transform: translateY(130%);
-      }
+    .hex-profile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 18px var(--accent2);
     }
 
     /* EMAIL */
@@ -254,8 +242,6 @@
     <!-- TITLE + BUTTON -->
     <div class="header-line">
       <h1>scoanzki</h1>
-
-      <!-- THEME SWITCH BUTTON -->
       <button class="theme-btn" onclick="switchTheme()">Tema</button>
     </div>
 
@@ -326,12 +312,10 @@
   </div>
 
   <script>
-    // buka link
     function openLink(url) {
       window.open(url, "_blank");
     }
 
-    // sparkles generate
     const sparkWrap = document.querySelector('.sparkles');
     for (let i = 0; i < 40; i++) {
       const s = document.createElement('i');
